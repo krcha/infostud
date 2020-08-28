@@ -1,6 +1,7 @@
 import pandas as pd
 from selenium import webdriver
 import time
+import config
 import csv
 from webdriver_manager.chrome import ChromeDriverManager
 
@@ -15,7 +16,7 @@ usernamebox = driver.find_element_by_id("Email_login")
 usernamebox.send_keys('milan.krcadinac@gmail.com')
 
 passbox = driver.find_element_by_id("Password_login")
-passbox.send_keys('pass')
+passbox.send_keys(config.password)
 
 loginbutton = driver.find_element_by_xpath('//*[@id="Password_login"]')
 loginbutton.submit()
