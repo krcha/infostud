@@ -10,6 +10,7 @@ f.close()
 
 driver = webdriver.Chrome(ChromeDriverManager().install())
 driver.get('https://poslovi.infostud.com/prijava?redirect=%2F')
+driver.maximize_window()
 
 usernamebox = driver.find_element_by_id("Email_login")
 usernamebox.send_keys('milan.krcadinac@gmail.com')
@@ -47,7 +48,7 @@ for posao in ids:
     #print(df)
 
     time.sleep(1)
-    df.to_csv('C:/Users/milan/PycharmProjects/job/spisakposlova.csv', mode='a', index=False, header=False)
+    df.to_csv('C:/Github/infostud/spisakposlova.csv', mode='a', index=False, header=False)
 #, index=False, header=True
 
     time.sleep(5)
@@ -65,7 +66,7 @@ for posao in ids:
     dataframe = {'pozicija': pozicija_list, 'link': linkpozicije_list}
     df = pd.DataFrame(dataframe)
     time.sleep(1)
-    df.to_csv('C:/Users/milan/PycharmProjects/job/spisakposlova.csv', mode='a', index=False, header=False)
+    df.to_csv('C:/Github/infostud/spisakposlova.csv', mode='a', index=False, header=False)
     time.sleep(5)
 
 driver.get('https://poslovi.infostud.com/oglasi-za-posao/beograd?education=4&vrste_kategorija_posla=8&working_hours=7&page=3')
@@ -81,7 +82,7 @@ for posao in ids:
     dataframe = {'pozicija': pozicija_list, 'link': linkpozicije_list}
     df = pd.DataFrame(dataframe)
     time.sleep(1)
-    df.to_csv('C:/Users/milan/PycharmProjects/job/spisakposlova.csv', mode='a', index=False, header=False)
+    df.to_csv('C:/Github/infostud/spisakposlova.csv', mode='a', index=False, header=False)
     time.sleep(5)
 
 driver.get('https://poslovi.infostud.com/oglasi-za-posao/beograd?education=4&vrste_kategorija_posla=8&working_hours=7&page=4')
@@ -97,7 +98,7 @@ for posao in ids:
     dataframe = {'pozicija': pozicija_list, 'link': linkpozicije_list}
     df = pd.DataFrame(dataframe)
     time.sleep(1)
-    df.to_csv('C:/Users/milan/PycharmProjects/job/spisakposlova.csv', mode='a', index=False, header=False)
+    df.to_csv('C:/Github/infostud/spisakposlova.csv', mode='a', index=False, header=False)
     time.sleep(5)
 
 driver.get('https://poslovi.infostud.com/oglasi-za-posao/beograd?education=4&vrste_kategorija_posla=8&working_hours=7&page=5')
@@ -113,10 +114,11 @@ for posao in ids:
     dataframe = {'pozicija': pozicija_list, 'link': linkpozicije_list}
     df = pd.DataFrame(dataframe)
     time.sleep(1)
-    df.to_csv('C:/Users/milan/PycharmProjects/job/spisakposlova.csv', mode='a', index=False, header=False)
+    df.to_csv('C:/Github/infostud/spisakposlova.csv', mode='a', index=False, header=False)
     time.sleep(5)
 
 
+#iz main.py
 #dodaje link za apliciranje
 df = pd.read_csv("spisakposlova.csv")
 df["konkurs"] = "https://poslovi.infostud.com/konkurs/"
