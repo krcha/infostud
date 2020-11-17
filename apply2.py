@@ -49,6 +49,11 @@ for url in urls:
 # else:
 
 
+#Vaša prijava je uspešno prosleđena poslodavcu
+# if (driver.page_source().contains("Vaša prijava je uspešno prosleđena poslodavcu")) is True:
+
+
+
     cookies = driver.find_element_by_xpath('//*[@id="__allow_ct_container"]/div/div/a')
     cookies.click()
 
