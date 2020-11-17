@@ -3,7 +3,6 @@ import time
 import pandas as pd
 import config
 from webdriver_manager.chrome import ChromeDriverManager
-import re
 
 f = open("spisakposlova.csv", "w")
 f.truncate()
@@ -24,33 +23,25 @@ loginbutton.submit()
 time.sleep(4)
 driver.get('https://poslovi.infostud.com/oglasi-za-posao/beograd?education=4&vrste_kategorija_posla=8&working_hours=7&esource=homepage')
 
-
-
 items = []
 
 containers = driver.find_elements_by_xpath('//*[@id="__list_jobs"]')
 
-#radi
 ids = driver.find_elements_by_xpath("//div[starts-with(@id, 'oglas_')]/div[3]/div[1]/h2/a")
-#firma = driver.find_element_by_xpath("//div[starts-with(@id, 'oglas_')]/div[3]/div[1]/p[1]")
 
 for posao in ids:
     pozicija = posao.text
     linkpozicije = posao.get_attribute(('href'))
 
-    #radi
-    #print(posao.text, ", link:", posao.get_attribute('href'))
     pozicija_list = pozicija.split('\n')
     linkpozicije_list = linkpozicije.split('\n')
 
     dataframe = {'pozicija': pozicija_list, 'link': linkpozicije_list}
 
     df = pd.DataFrame(dataframe)
-    #print(df)
 
     time.sleep(0.05)
     df.to_csv('C:/Github/infostud/spisakposlova.csv', mode='a', index=False, header=False)
-#, index=False, header=True
 
     time.sleep(1.5)
 
@@ -58,7 +49,7 @@ driver.get('https://poslovi.infostud.com/oglasi-za-posao/beograd?education=4&vrs
 items = []
 containers = driver.find_elements_by_xpath('//*[@id="__list_jobs"]')
 ids = driver.find_elements_by_xpath("//div[starts-with(@id, 'oglas_')]/div[3]/div[1]/h2/a")
-#firma = driver.find_element_by_xpath("//div[starts-with(@id, 'oglas_')]/div[3]/div[1]/p[1]")
+
 for posao in ids:
     pozicija = posao.text
     linkpozicije = posao.get_attribute(('href'))
@@ -74,7 +65,7 @@ driver.get('https://poslovi.infostud.com/oglasi-za-posao/beograd?education=4&vrs
 items = []
 containers = driver.find_elements_by_xpath('//*[@id="__list_jobs"]')
 ids = driver.find_elements_by_xpath("//div[starts-with(@id, 'oglas_')]/div[3]/div[1]/h2/a")
-#firma = driver.find_element_by_xpath("//div[starts-with(@id, 'oglas_')]/div[3]/div[1]/p[1]")
+
 for posao in ids:
     pozicija = posao.text
     linkpozicije = posao.get_attribute(('href'))
@@ -90,7 +81,7 @@ driver.get('https://poslovi.infostud.com/oglasi-za-posao/beograd?education=4&vrs
 items = []
 containers = driver.find_elements_by_xpath('//*[@id="__list_jobs"]')
 ids = driver.find_elements_by_xpath("//div[starts-with(@id, 'oglas_')]/div[3]/div[1]/h2/a")
-#firma = driver.find_element_by_xpath("//div[starts-with(@id, 'oglas_')]/div[3]/div[1]/p[1]")
+
 for posao in ids:
     pozicija = posao.text
     linkpozicije = posao.get_attribute(('href'))
@@ -106,7 +97,7 @@ driver.get('https://poslovi.infostud.com/oglasi-za-posao/beograd?education=4&vrs
 items = []
 containers = driver.find_elements_by_xpath('//*[@id="__list_jobs"]')
 ids = driver.find_elements_by_xpath("//div[starts-with(@id, 'oglas_')]/div[3]/div[1]/h2/a")
-#firma = driver.find_element_by_xpath("//div[starts-with(@id, 'oglas_')]/div[3]/div[1]/p[1]")
+
 for posao in ids:
     pozicija = posao.text
     linkpozicije = posao.get_attribute(('href'))
@@ -131,21 +122,18 @@ df.to_csv("spisakposlova.csv", index=False, header=True)
 df = pd.read_csv('spisakposlova.csv')
 urls = df['konkurs']
 
-for url in urls:
-    data = {}
-    driver.get(url)
+# for url in urls:
+#     data = {}
+#     driver.get(url)
+#
+# cv = driver.find_elements_by_xpath('//*[@id="cv_id_293608"]').click();
+# cover = driver.find_elements_by_xpath('//*[@id="__prijava_pp_text_container"]/div/a').click();
+# pisi = driver.find_elements_by_xpath('*[@id="tinymce"]').click();
+#
+# src = driver.page_source
+# if hasxpath('//*[@id="__prijava-submit"]') == True:
+#             driver.find_element_by_xpath('//*[@id="__prijava-submit"]').click()
+# else:
+#     driver.close()
 
-cv = driver.find_elements_by_xpath('//*[@id="cv_id_293608"]').click();
-cover = driver.find_elements_by_xpath('//*[@id="__prijava_pp_text_container"]/div/a').click();
-pisi = driver.find_elements_by_xpath('*[@id="tinymce"]').click();
 
-src = driver.page_source
-if hasxpath('//*[@id="__prijava-submit"]') == True:
-            driver.find_element_by_xpath('//*[@id="__prijava-submit"]').click()
-else:
-    driver.close()
-
-
-
-#text_found = re.search(r'Napuštate sajt Poslovi.infostud.com', src)
-#self.assertNotEqual(text_found, None)
