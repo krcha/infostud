@@ -3,6 +3,7 @@ import time
 import pandas as pd
 import config
 from webdriver_manager.chrome import ChromeDriverManager
+import re
 
 f = open("spisakposlova.csv", "w")
 f.truncate()
@@ -20,7 +21,7 @@ passbox.send_keys(config.password)
 
 loginbutton = driver.find_element_by_xpath('//*[@id="Password_login"]')
 loginbutton.submit()
-time.sleep(5)
+time.sleep(4)
 driver.get('https://poslovi.infostud.com/oglasi-za-posao/beograd?education=4&vrste_kategorija_posla=8&working_hours=7&esource=homepage')
 
 
@@ -47,11 +48,11 @@ for posao in ids:
     df = pd.DataFrame(dataframe)
     #print(df)
 
-    time.sleep(1)
+    time.sleep(0.05)
     df.to_csv('C:/Github/infostud/spisakposlova.csv', mode='a', index=False, header=False)
 #, index=False, header=True
 
-    time.sleep(5)
+    time.sleep(1.5)
 
 driver.get('https://poslovi.infostud.com/oglasi-za-posao/beograd?education=4&vrste_kategorija_posla=8&working_hours=7&page=2')
 items = []
@@ -65,9 +66,9 @@ for posao in ids:
     linkpozicije_list = linkpozicije.split('\n')
     dataframe = {'pozicija': pozicija_list, 'link': linkpozicije_list}
     df = pd.DataFrame(dataframe)
-    time.sleep(1)
+    time.sleep(0.05)
     df.to_csv('C:/Github/infostud/spisakposlova.csv', mode='a', index=False, header=False)
-    time.sleep(5)
+    time.sleep(2)
 
 driver.get('https://poslovi.infostud.com/oglasi-za-posao/beograd?education=4&vrste_kategorija_posla=8&working_hours=7&page=3')
 items = []
@@ -81,9 +82,9 @@ for posao in ids:
     linkpozicije_list = linkpozicije.split('\n')
     dataframe = {'pozicija': pozicija_list, 'link': linkpozicije_list}
     df = pd.DataFrame(dataframe)
-    time.sleep(1)
+    time.sleep(0.05)
     df.to_csv('C:/Github/infostud/spisakposlova.csv', mode='a', index=False, header=False)
-    time.sleep(5)
+    time.sleep(2)
 
 driver.get('https://poslovi.infostud.com/oglasi-za-posao/beograd?education=4&vrste_kategorija_posla=8&working_hours=7&page=4')
 items = []
@@ -97,9 +98,9 @@ for posao in ids:
     linkpozicije_list = linkpozicije.split('\n')
     dataframe = {'pozicija': pozicija_list, 'link': linkpozicije_list}
     df = pd.DataFrame(dataframe)
-    time.sleep(1)
+    time.sleep(0.05)
     df.to_csv('C:/Github/infostud/spisakposlova.csv', mode='a', index=False, header=False)
-    time.sleep(5)
+    time.sleep(2)
 
 driver.get('https://poslovi.infostud.com/oglasi-za-posao/beograd?education=4&vrste_kategorija_posla=8&working_hours=7&page=5')
 items = []
@@ -113,9 +114,9 @@ for posao in ids:
     linkpozicije_list = linkpozicije.split('\n')
     dataframe = {'pozicija': pozicija_list, 'link': linkpozicije_list}
     df = pd.DataFrame(dataframe)
-    time.sleep(1)
+    time.sleep(0.05)
     df.to_csv('C:/Github/infostud/spisakposlova.csv', mode='a', index=False, header=False)
-    time.sleep(5)
+    time.sleep(2)
 
 
 #iz main.py
@@ -137,3 +138,14 @@ for url in urls:
 cv = driver.find_elements_by_xpath('//*[@id="cv_id_293608"]').click();
 cover = driver.find_elements_by_xpath('//*[@id="__prijava_pp_text_container"]/div/a').click();
 pisi = driver.find_elements_by_xpath('*[@id="tinymce"]').click();
+
+src = driver.page_source
+if hasxpath('//*[@id="__prijava-submit"]') == True:
+            driver.find_element_by_xpath('//*[@id="__prijava-submit"]').click()
+else:
+    driver.close()
+
+
+
+#text_found = re.search(r'Napuštate sajt Poslovi.infostud.com', src)
+#self.assertNotEqual(text_found, None)
