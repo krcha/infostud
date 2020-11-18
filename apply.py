@@ -3,7 +3,7 @@ import time
 import pandas as pd
 from selenium.common.exceptions import NoSuchElementException
 
-import credentials
+import config
 from webdriver_manager.chrome import ChromeDriverManager
 
 #iz main.py#dodaje link za apliciranje
@@ -28,7 +28,7 @@ for url in urls:
         usernamebox.send_keys('milan.krcadinac@gmail.com')
 
         passbox = driver.find_element_by_id("Password_login")
-        passbox.send_keys(credentials.password)
+        passbox.send_keys(config.password)
 
         loginbutton = driver.find_element_by_xpath('//*[@id="Password_login"]')
         loginbutton.submit()
@@ -90,7 +90,7 @@ for url in urls:
         # usernamebox.send_keys('milan.krcadinac@gmail.com')
         #
         # passbox = driver.find_element_by_id("Password_login")
-        # passbox.send_keys(credentials.password)
+        # passbox.send_keys(config.password)
         #
         # loginbutton = driver.find_element_by_xpath('//*[@id="Password_login"]')
         # loginbutton.submit()
