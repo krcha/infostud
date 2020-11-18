@@ -2,8 +2,6 @@
 /.idea/
 /config.py
 /backup/
-/spisakposlova.csv
 debug.log
-config.py
-spisakposlova.csv
 !/config.py
+!/spisakposlova.csv
