@@ -5,5 +5,5 @@
 debug.log
 !/config.py
 !/spisakposlova.csv
-!/credentials.py
-credentials.py
+/config.py
+config.py
