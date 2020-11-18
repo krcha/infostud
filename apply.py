@@ -9,7 +9,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 #iz main.py#dodaje link za apliciranje
 df = pd.read_csv("spisakposlova.csv")
 df["konkurs"] = "https://poslovi.infostud.com/konkurs/"
-df.columns = ["Pozicija", "link", "konkurs"]
+df.columns = ["Pozicija", "link", "konkurs", "aplicirao"]
 df['konkurs'] = df['link'].str.extract("(\d\d\d\d\d\d)", expand=True)
 df['konkurs'] = 'https://poslovi.infostud.com/konkurs/' + df['konkurs'].astype(str)
 df.to_csv("spisakposlova.csv", index=False, header=True)
@@ -32,7 +32,7 @@ for url in urls:
 
         loginbutton = driver.find_element_by_xpath('//*[@id="Password_login"]')
         loginbutton.submit()
-        time.sleep(3)
+        time.sleep(2)
         #data = {}
         driver.get(url)
 
@@ -44,8 +44,7 @@ for url in urls:
 
         cover = driver.find_element_by_css_selector("input[type='radio'][value='64176']")
         cover.click()
-        time.sleep(1)
-
+        time.sleep(0.5)
 
         try:
             grad = driver.find_element_by_xpath(
@@ -56,7 +55,10 @@ for url in urls:
             time.sleep(5)
             konkurisi = driver.find_element_by_xpath('//*[@id="__prijava-preview-submit"]')
             konkurisi.click()
-            time.sleep(1)
+            time.sleep(0.5)
+            # df = pd.read_csv("spisakposlova.csv")
+            # df["aplicirao"] = "aplicirao"
+            # df.to_csv("spisakposlova.csv", index=False, header=True)
             driver.close()
         except NoSuchElementException:
             prijava = driver.find_element_by_xpath('//*[@id="__prijava-submit"]')
@@ -64,13 +66,19 @@ for url in urls:
             time.sleep(5)
             konkurisi = driver.find_element_by_xpath('//*[@id="__prijava-preview-submit"]')
             konkurisi.click()
-            time.sleep(1)
+            time.sleep(0.5)
+            driver.close()
+        else:
+            vecaplicirano = driver.find_element_by_xpath('//*[@id="modal-container-layout-forced"]/div/div[3]/button[1]')
+            vecaplicirano.click()
             driver.close()
     except NoSuchElementException:
         driver.get(url)
         driver.close()
-
-
+    else:
+        vecaplicirano = driver.find_element_by_xpath('//*[@id="modal-container-layout-forced"]/div/div[3]/button[1]')
+        vecaplicirano.click()
+        driver.close()
 
 
         #
@@ -86,7 +94,7 @@ for url in urls:
         #
         # loginbutton = driver.find_element_by_xpath('//*[@id="Password_login"]')
         # loginbutton.submit()
-        # time.sleep(3)
+        # time.sleep(2)
         # # data = {}
         # driver.get(url)
         #
@@ -98,7 +106,7 @@ for url in urls:
         #
         # cover = driver.find_element_by_css_selector("input[type='radio'][value='64176']")
         # cover.click()
-        # time.sleep(1)
+        # time.sleep(0.5)
         #
         # prijava = driver.find_element_by_xpath('//*[@id="__prijava-submit"]')
         # prijava.click()
@@ -106,7 +114,7 @@ for url in urls:
         # time.sleep(5)
         # konkurisi = driver.find_element_by_xpath('//*[@id="__prijava-preview-submit"]')
         # konkurisi.click()
-        # time.sleep(1)
+        # time.sleep(0.5)
         #
         # driver.close()
 

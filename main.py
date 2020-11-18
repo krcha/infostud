@@ -32,17 +32,13 @@ ids = driver.find_elements_by_xpath("//div[starts-with(@id, 'oglas_')]/div[3]/di
 for posao in ids:
     pozicija = posao.text
     linkpozicije = posao.get_attribute(('href'))
-
+    aplicirao = ""
     pozicija_list = pozicija.split('\n')
     linkpozicije_list = linkpozicije.split('\n')
-
-    dataframe = {'pozicija': pozicija_list, 'link': linkpozicije_list}
-
+    dataframe = {'pozicija': pozicija_list, 'link': linkpozicije_list, 'aplicirao':aplicirao}
     df = pd.DataFrame(dataframe)
-
     time.sleep(0.05)
     df.to_csv('C:/Github/infostud/spisakposlova.csv', mode='a', index=False, header=False)
-
     time.sleep(1.5)
 
 driver.get('https://poslovi.infostud.com/oglasi-za-posao/beograd?education=4&vrste_kategorija_posla=8&working_hours=7&page=2')
@@ -53,9 +49,10 @@ ids = driver.find_elements_by_xpath("//div[starts-with(@id, 'oglas_')]/div[3]/di
 for posao in ids:
     pozicija = posao.text
     linkpozicije = posao.get_attribute(('href'))
+    aplicirao = ""
     pozicija_list = pozicija.split('\n')
     linkpozicije_list = linkpozicije.split('\n')
-    dataframe = {'pozicija': pozicija_list, 'link': linkpozicije_list}
+    dataframe = {'pozicija': pozicija_list, 'link': linkpozicije_list, 'aplicirao':aplicirao}
     df = pd.DataFrame(dataframe)
     time.sleep(0.05)
     df.to_csv('C:/Github/infostud/spisakposlova.csv', mode='a', index=False, header=False)
@@ -71,7 +68,7 @@ for posao in ids:
     linkpozicije = posao.get_attribute(('href'))
     pozicija_list = pozicija.split('\n')
     linkpozicije_list = linkpozicije.split('\n')
-    dataframe = {'pozicija': pozicija_list, 'link': linkpozicije_list}
+    dataframe = {'pozicija': pozicija_list, 'link': linkpozicije_list, 'aplicirao':aplicirao}
     df = pd.DataFrame(dataframe)
     time.sleep(0.05)
     df.to_csv('C:/Github/infostud/spisakposlova.csv', mode='a', index=False, header=False)
@@ -87,7 +84,7 @@ for posao in ids:
     linkpozicije = posao.get_attribute(('href'))
     pozicija_list = pozicija.split('\n')
     linkpozicije_list = linkpozicije.split('\n')
-    dataframe = {'pozicija': pozicija_list, 'link': linkpozicije_list}
+    dataframe = {'pozicija': pozicija_list, 'link': linkpozicije_list, 'aplicirao':aplicirao}
     df = pd.DataFrame(dataframe)
     time.sleep(0.05)
     df.to_csv('C:/Github/infostud/spisakposlova.csv', mode='a', index=False, header=False)
@@ -103,25 +100,41 @@ for posao in ids:
     linkpozicije = posao.get_attribute(('href'))
     pozicija_list = pozicija.split('\n')
     linkpozicije_list = linkpozicije.split('\n')
-    dataframe = {'pozicija': pozicija_list, 'link': linkpozicije_list}
+    dataframe = {'pozicija': pozicija_list, 'link': linkpozicije_list, 'aplicirao':aplicirao}
+    df = pd.DataFrame(dataframe)
+    time.sleep(0.05)
+    df.to_csv('C:/Github/infostud/spisakposlova.csv', mode='a', index=False, header=False)
+    time.sleep(2)
+driver.get('https://poslovi.infostud.com/oglasi-za-posao/beograd?education=4&vrste_kategorija_posla=8&working_hours=7&page=6')
+items = []
+containers = driver.find_elements_by_xpath('//*[@id="__list_jobs"]')
+ids = driver.find_elements_by_xpath("//div[starts-with(@id, 'oglas_')]/div[3]/div[1]/h2/a")
+
+for posao in ids:
+    pozicija = posao.text
+    linkpozicije = posao.get_attribute(('href'))
+    pozicija_list = pozicija.split('\n')
+    linkpozicije_list = linkpozicije.split('\n')
+    dataframe = {'pozicija': pozicija_list, 'link': linkpozicije_list, 'aplicirao':aplicirao}
     df = pd.DataFrame(dataframe)
     time.sleep(0.05)
     df.to_csv('C:/Github/infostud/spisakposlova.csv', mode='a', index=False, header=False)
     time.sleep(2)
 
-
 #iz main.py
 #dodaje link za apliciranje
 df = pd.read_csv("spisakposlova.csv")
 df["konkurs"] = "https://poslovi.infostud.com/konkurs/"
-df.columns = ["Pozicija", "link", "konkurs"]
+df.columns = ["Pozicija", "link", "konkurs", "aplicirao"]
 df['konkurs'] = df['link'].str.extract("(\d\d\d\d\d\d)", expand=True)
 df['konkurs'] = 'https://poslovi.infostud.com/konkurs/' + df['konkurs'].astype(str)
-df.to_csv("spisakposlova.csv", index=False, header=True)
-
-df = pd.read_csv('spisakposlova.csv')
+#aplicirao = ""
+df["aplicirao"] = ""
+#df = pd.read_csv('spisakposlova.csv')
 urls = df['konkurs']
 
+df.to_csv("spisakposlova.csv", index=False, header=True)
+driver.close()
 # for url in urls:
 #     data = {}
 #     driver.get(url)
